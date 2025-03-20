@@ -163,14 +163,16 @@ def box(evalId, box_name):
 score = 1
 scoreResult = {}
 
-try :
-    #boucle for pour les 4 premières fonctions
-    for i in range(1, 5):
-        box_name = f"q{i}".encode() + axel.public_key
-        if box(evalId, box_name) == True:
+#boucle for pour les 4 premières fonctions
+for i in range(1, 5):
+    box_name = f"q{i}".encode() + axel.public_key
+
+    try :
+        box_value = box(evalId, box_name)
+        if au.ABIType.from_string("bool").decode(box_value):
             score += 1
-    scoreResult["RESULTAT"] = score
-    print(scoreResult)
-except sdk.error.AlgodHTTPError as e:
-    print(e)
-    scoreResult["RESULTAT"] = 0
+        scoreResult["RESULTAT GROS BEAU GOSSE :D"] = score
+    except sdk.error.AlgodHTTPError as e:
+        print(e)
+        scoreResult["RESULTAT :"] = 0
+print(scoreResult)
